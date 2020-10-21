@@ -1,35 +1,27 @@
-# [TypeScript Example](https://www.typescriptlang.org/)
+# Steps to reproduce
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+- Bootstrap RN project using TS template
+`npx create-react-native-app my-app --template with-typescript`
+- CD into the project
+`cd my-app`
+- Add project dependencies
+`yarn add axios url //Not necessary if only using fetch`
+ -Add client generator (as Dev dependency)
+yarn add -D @openapitools/openapi-generator-cli`
+- Create Api folder (for everything API related)
+`mkdir Api`
+- Download OAS file to Api folder
+`curl https://petstore3.swagger.io/api/v3/openapi.json > ./Api/openapi.json`
+- Add generator script to package.json
+`npx add-project-script -n "openapi" -v "openapi-generator-cli generate -i ./Api/openapi.json -g typescript-fetch -o ./Api/generated"`
+- Generate the client (requires JDK installed)
+`yarn openapi`
 
-```sh
-npx create-react-native-app -t with-typescript
+
+
+
+# Scripts
 ```
-
-
-TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
-
-## 🚀 How to use
-
-#### Creating a new project
-
-- Install the CLI: `npm i -g expo-cli`
-- Create a project: `expo init --template expo-template-blank-typescript`
-- `cd` into the project
-
-### Adding TypeScript to existing projects
-
-- Copy the `tsconfig.json` from this repo, or new typescript template
-- Add typescript dependencies: `yarn add --dev @types/react @types/react-native @types/react-dom typescript`
-- Rename files tpo TypeScript, `.tsx` for React components and `.ts` for plain typescript files
-
-## 📝 Notes
-
-- [Expo TypeScript guide](https://docs.expo.io/versions/latest/guides/typescript/)
+"openapiaxios": "openapi-generator-cli generate -i ./Api/openapi.json -g typescript-axios -o ./Api/axios-generated",
+"openapifetch": "openapi-generator-cli generate -i ./Api/openapi.json -g typescript-fetch -o ./Api/fetch-generated"
+```
